@@ -12,6 +12,8 @@ const mockUpStrand = () => {
   }
   return newStrand;
 };
+let cees = [];
+let gees = [];
 
 // Factory function
 function pAequorFactor(number, arr) {
@@ -72,11 +74,32 @@ function pAequorFactor(number, arr) {
         console.log(`${inCommon}: 100 % symbiosis`);
       }
     },
+    willLikelySurvive() {
+      for (let i = 0; i < this.dna.length; i++) {
+        if (this.dna[i] === "G") {
+          gees.push(this.dna[i]);
+        }
+        if (this.dna[i] === "C") {
+          cees.push(this.dna[i]);
+        }
+      }
+      if (cees.length > 5 || gees.length > 5) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   };
 }
 
 const ex1 = pAequorFactor(1, mockUpStrand());
 const ex2 = pAequorFactor(2, mockUpStrand());
 const ex3 = pAequorFactor(3, mockUpStrand());
-console.log(ex2, ex1);
-ex1.compareDNA(ex2);
+let instancies = [];
+function create30Instancies() {
+  for (let i = 0; i <= 30; i++) {
+    instancies.push(pAequorFactor(1, mockUpStrand()));
+  }
+}
+create30Instancies();
+console.log(instancies);
