@@ -42,12 +42,41 @@ function pAequorFactor(number, arr) {
 
       this.dna.splice(randomIndex, 1, randomBase);
     },
+    compareDNA(pAequor) {
+      let toCompare = pAequor.dna;
+      let dnaThisObj = this.dna;
+      let inCommon = [];
+      for (let i = 0; i < toCompare.length; i++) {
+        // console.log(`${toCompare[i]} toto`);
+        for (let j = 0; j < dnaThisObj.length; j++) {
+          if (toCompare[i] === dnaThisObj[j] && i === j) {
+            // console.log(toCompare[i]);
+            inCommon.push(toCompare[i]);
+          }
+        }
+      }
+      console.log(inCommon);
+      if (inCommon.length === 0) {
+        console.log(`${inCommon}: 0 % symbiosis`);
+      }
+      if (inCommon.length <= 3 && inCommon.length > 0) {
+        console.log(`${inCommon}: cca 25 % symbiosis`);
+      }
+      if (inCommon.length <= 7 && inCommon.length > 3) {
+        console.log(`${inCommon}: cca 50 % symbiosis`);
+      }
+      if (inCommon.length <= 10 && inCommon.length > 7) {
+        console.log(`${inCommon}: cca 75 % symbiosis`);
+      }
+      if (inCommon.length === 14) {
+        console.log(`${inCommon}: 100 % symbiosis`);
+      }
+    },
   };
 }
 
 const ex1 = pAequorFactor(1, mockUpStrand());
-console.log(ex1);
-ex1.mutate();
-console.log(ex1);
 const ex2 = pAequorFactor(2, mockUpStrand());
 const ex3 = pAequorFactor(3, mockUpStrand());
+console.log(ex2, ex1);
+ex1.compareDNA(ex2);
