@@ -12,19 +12,42 @@ const mockUpStrand = () => {
   }
   return newStrand;
 };
-// Since you need to create multiple objects, create a factory function pAequorFactory() that has two parameters:
-
-// The first parameter is number (no two organisms should have the same number).
-// The second parameter is an array of 15 DNA bases.
-// pAequorFactor() should return an object that contains the properties specimenNum and dna that correspond to the parameters provided.
-
-// You’ll also add more methods to this returned object in the later steps.
 
 // Factory function
 function pAequorFactor(number, arr) {
   return {
     specimenNum: number,
     dna: arr,
+    mutate() {
+      // picks random letter and changes it for another and making sure it wont be the same
+      let randomIndex = [Math.floor(Math.random() * 15)];
+      let letterOnIndex = this.dna[randomIndex];
+      let randomBase = returnRandBase();
+      if (letterOnIndex === "A" && randomBase === "A") {
+        const dnaBases = ["T", "C", "G"];
+        randomBase = dnaBases[Math.floor(Math.random() * 3)];
+      }
+      if (letterOnIndex === "T" && randomBase === "T") {
+        const dnaBases = ["A", "C", "G"];
+        randomBase = dnaBases[Math.floor(Math.random() * 3)];
+      }
+      if (letterOnIndex === "C" && randomBase === "C") {
+        const dnaBases = ["A", "T", "G"];
+        randomBase = dnaBases[Math.floor(Math.random() * 3)];
+      }
+      if (letterOnIndex === "G" && randomBase === "G") {
+        const dnaBases = ["A", "T", "C"];
+        randomBase = dnaBases[Math.floor(Math.random() * 3)];
+      }
+
+      this.dna.splice(randomIndex, 1, randomBase);
+    },
   };
 }
-console.log(pAequorFactor(4, mockUpStrand()));
+
+const ex1 = pAequorFactor(1, mockUpStrand());
+console.log(ex1);
+ex1.mutate();
+console.log(ex1);
+const ex2 = pAequorFactor(2, mockUpStrand());
+const ex3 = pAequorFactor(3, mockUpStrand());
