@@ -12,8 +12,11 @@ const mockUpStrand = () => {
   }
   return newStrand;
 };
-let cees = [];
-let gees = [];
+
+// creates random nnumber for use in specimenNum
+const randomNumber = () => {
+  return Math.floor(Math.random() * 1000);
+};
 
 // Factory function
 function pAequorFactor(number, arr) {
@@ -45,19 +48,18 @@ function pAequorFactor(number, arr) {
       this.dna.splice(randomIndex, 1, randomBase);
     },
     compareDNA(pAequor) {
+      // compares 2 dnas and logs cca symbiosis
+
       let toCompare = pAequor.dna;
       let dnaThisObj = this.dna;
       let inCommon = [];
       for (let i = 0; i < toCompare.length; i++) {
-        // console.log(`${toCompare[i]} toto`);
         for (let j = 0; j < dnaThisObj.length; j++) {
           if (toCompare[i] === dnaThisObj[j] && i === j) {
-            // console.log(toCompare[i]);
             inCommon.push(toCompare[i]);
           }
         }
       }
-      console.log(inCommon);
       if (inCommon.length === 0) {
         console.log(`${inCommon}: 0 % symbiosis`);
       }
@@ -75,6 +77,8 @@ function pAequorFactor(number, arr) {
       }
     },
     willLikelySurvive() {
+      let cees = [];
+      let gees = [];
       for (let i = 0; i < this.dna.length; i++) {
         if (this.dna[i] === "G") {
           gees.push(this.dna[i]);
@@ -92,14 +96,19 @@ function pAequorFactor(number, arr) {
   };
 }
 
-const ex1 = pAequorFactor(1, mockUpStrand());
-const ex2 = pAequorFactor(2, mockUpStrand());
-const ex3 = pAequorFactor(3, mockUpStrand());
-let instancies = [];
+let instancies = []; // variable with created 30 objects
+let toStudyInstancies = []; // selected objects with willLikelySurvive method returned true
+
 function create30Instancies() {
-  for (let i = 0; i <= 30; i++) {
-    instancies.push(pAequorFactor(1, mockUpStrand()));
+  for (let i = 0; i < 30; i++) {
+    instancies.push(pAequorFactor(randomNumber(), mockUpStrand()));
+  }
+  for (item in instancies) {
+    if (instancies[item].willLikelySurvive() === true) {
+      toStudyInstancies.push(instancies[item]);
+    }
   }
 }
+
 create30Instancies();
-console.log(instancies);
+console.log(toStudyInstancies);
